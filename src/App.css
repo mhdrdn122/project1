@@ -1,0 +1,110 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+:root {
+  --background-light: #f4f4f8;
+  --text-light: #333;
+  --background-dark: #1e1e2e;
+  --text-dark: #e4e4e7;
+  --message-user: #4f46e5;
+  --message-gemini: #22c55e;
+  --message-time: #888;
+  --recording-color: #f87171;
+}
+
+body.light {
+  --background: var(--background-light);
+  --text-color: var(--text-light);
+}
+
+body.dark {
+  --background: var(--background-dark);
+  --text-color: var(--text-dark);
+}
+
+.chat-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: var(--background);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.chat-box {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  width: fit-content;
+  max-width: 80%;
+}
+
+.message.user {
+  background-color: var(--message-user);
+  color: white;
+  align-self: flex-end;
+}
+
+.message.gemini {
+  background-color: var(--message-gemini);
+  color: white;
+  align-self: flex-start;
+}
+
+.message-time {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--message-time);
+  margin-top: 2px;
+}
+
+.input-box {
+  text-align: center;
+}
+
+.record-button {
+  background-color: var(--message-user);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.record-button.recording {
+  background-color: var(--recording-color);
+}
+
+@media (max-width: 600px) {
+  .chat-container {
+      width: 90%;
+  }
+  .title {
+      font-size: 1.2rem;
+  }
+  .message {
+      font-size: 0.9rem;
+  }
+}
