@@ -1,117 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
+import React, { useState } from "react";
+import { recognizeVoice } from "./voiceRecognition";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import "./App.css";
+import damas from "./assets/images/damas.jfif";
+import maka from "./assets/images/maka.jfif";
 
-import  { GoogleGenerativeAI } from '@google/generative-ai';
-const genAI = new GoogleGenerativeAI('AIzaSyDx55LPyLCaKNrdfBwC-QmJCVpMQDvMu0Y');
-const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+const genAI = new GoogleGenerativeAI("AIzaSyDx55LPyLCaKNrdfBwC-QmJCVpMQDvMu0Y");
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-const GeminiChatApp = () => {
-    const [messages, setMessages] = useState([]);
-    const [recording, setRecording] = useState(false);
-    const [theme, setTheme] = useState('light');
+const questions = [
+  { id: 1, question: "أين تقع دمشق؟", answer: "سوريا", src: damas },
+  { id: 2, question: "أين تقع مكة؟", answer: "السعودية", src: maka },
+];
 
-    useEffect(() => {
-        document.body.className = theme;
-    }, [theme]);
+const GeminiVoiceQuestionDetection = () => {
+  const [detectedQuestionId, setDetectedQuestionId] = useState(null);
+  const [userAnswer, setUserAnswer] = useState(null);
+  const [answerResult, setAnswerResult] = useState(null);
+  const [recording, setRecording] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [answerLoading, setAnswerLoading] = useState(false);
 
-    const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    };
+  const handleSendToGemini = async (voiceText) => {
+    setLoading(true);
+    const prompt = `لدي مجموعة من الأسئلة التالية:\n${questions
+      .map((q) => `${q.id}- ${q.question}`)
+      .join("\n")}\nما هو رقم السؤال الذي يطابق النص التالي: "${voiceText}"؟`;
+    try {
+      const result = await model.generateContent(prompt);
+      const answer = result.response.text();
+      const questionId = parseInt(answer.match(/\d+/)?.[0], 10);
 
-    const getCurrentTime = () => {
-        const now = new Date();
-        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    };
+      if (!isNaN(questionId)) {
+        setDetectedQuestionId(questionId);
+        console.log("رقم السؤال المكتشف:", questionId); 
+      } else {
+        setDetectedQuestionId(null);
+      }
+    } catch (error) {
+      console.error("خطأ في استدعاء Gemini:", error);
+    }
+    setLoading(false);
+  };
 
-    const handleSend = async (voiceText) => {
-        if (!voiceText.trim()) return;
+  const handleSendAnswerToGemini = async (answerText) => {
+    setAnswerLoading(true);
+    const selectedQuestion = questions.find((q) => q.id === detectedQuestionId);
+    const prompt = `السؤال: "${selectedQuestion?.question}"\nالإجابة المقدمة: "${answerText}"\nالإجابة الصحيحة: "${selectedQuestion?.answer}"\nهل الإجابة صحيحة أم خاطئة؟`;
+    try {
+      const result = await model.generateContent(prompt);
+      const reply = result.response.text();
+      const isCorrect = reply.includes("صحيحة") ? "صحيحة" : "خاطئة";
+      setUserAnswer(answerText);
+      setAnswerResult(isCorrect);
+    } catch (error) {
+      console.error("خطأ في استدعاء Gemini للتحقق من الإجابة:", error);
+    }
+    setAnswerLoading(false);
+  };
 
-        setMessages((prev) => [
-            ...prev,
-            { text: voiceText, sender: 'user', time: getCurrentTime() },
-        ]);
+  
+  const startRecordingQuestion = async () => {
+    setRecording(true);
+    try {
+      const voiceText = await recognizeVoice();
+      await handleSendToGemini(voiceText);
+    } catch (error) {
+      console.error("خطأ في التسجيل:", error);
+    }
+    setRecording(false);
+  };
 
-        try {
-            const result = await model.generateContent(voiceText);
-            const answer = result.response.text();
-            setMessages((prev) => [
-                ...prev,
-                { text: answer, sender: 'gemini', time: getCurrentTime() },
-            ]);
-        } catch (error) {
-            console.error('Error fetching response:', error);
-        }
-    };
+  
+  const startRecordingAnswer = async () => {
+    setRecording(true);
+    try {
+      const answerText = await recognizeVoice();
+      await handleSendAnswerToGemini(answerText);
+    } catch (error) {
+      console.error("خطأ في التسجيل:", error);
+    }
+    setRecording(false);
+  };
 
-    const deleteMessage = (index) => {
-        setMessages((prev) => prev.filter((_, i) => i !== index));
-    };
-
-    const startRecording = () => {
-        setRecording(true);
-
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'ar-SA';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onresult = (event) => {
-            const voiceText = event.results[0][0].transcript;
-            if (voiceText.trim()) {
-                handleSend(voiceText);
-            }
-        };
-
-        recognition.onerror = (event) => {
-            console.error('Speech recognition error:', event.error);
-        };
-
-        recognition.onend = () => {
-            setRecording(false);
-        };
-
-        try {
-            recognition.start();
-        } catch (err) {
-            console.error('Error starting recognition:', err);
-        }
-
-        const stopRecording = () => {
-            recognition.stop();
-            setRecording(false);
-        };
-
-        document.addEventListener('mouseup', stopRecording, { once: true });
-    };
-
-    return (
-        <div className="chat-container">
-            <h1 className="title">محادثة مع Gemini</h1>
-            <button className="theme-toggle" onClick={toggleTheme}>
-                {theme === 'light' ? 'الوضع الغامق' : 'الوضع الفاتح'}
-            </button>
-            <div className="chat-box">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`message ${msg.sender}`}>
-                        <span className="message-time">{msg.time}</span>
-                        <p>{msg.text}</p>
-                        <button className="delete-button" onClick={() => deleteMessage(index)}>🗑️</button>
-                    </div>
-                ))}
-            </div>
-            <div className="input-box">
-                <button
-                    onMouseDown={startRecording}
-                    className={`record-button ${recording ? 'recording' : ''}`}
-                >
-                    🎙️ تسجيل
-                </button>
-            </div>
-            <ToastContainer />
-        </div>
-    );
+  return (
+    <div className={`app-container ${recording ? "recording" : ""}`}>
+      <h1>نظام التعرف على الأسئلة</h1>
+      <div className="image-gallery">
+        {questions.map((q) => (
+          <img
+            key={q.id}
+            src={q.src}
+            alt={q.question}
+            className={`question-image ${
+              detectedQuestionId === q.id ? "highlight" : ""
+            }`}
+          />
+        ))}
+      </div>
+      <div className="button-container">
+        <button
+          onMouseDown={startRecordingQuestion}
+          onMouseUp={() => setRecording(false)}
+          className={`record-btn ${recording ? "active" : ""}`}
+        >
+          🎙️ تسجيل السؤال
+        </button>
+        <button
+          onMouseDown={startRecordingAnswer}
+          onMouseUp={() => setRecording(false)}
+          className={`record-btn ${recording ? "active" : ""}`}
+          disabled={!detectedQuestionId}
+        >
+          🎤 تسجيل الإجابة
+        </button>
+      </div>
+      {loading && <p className="status-text">جاري معالجة السؤال...</p>}
+      {answerLoading && <p className="status-text">جاري معالجة الإجابة...</p>}
+      {detectedQuestionId && <p> السؤال : {detectedQuestionId}</p>}
+      {userAnswer && (
+        <p>
+          الإجابة : "{userAnswer}" - النتيجة: {answerResult}
+        </p>
+      )}
+    </div>
+  );
 };
 
-export default GeminiChatApp;
+export default GeminiVoiceQuestionDetection;
