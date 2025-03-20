@@ -17,6 +17,8 @@ const GeminiVoiceQuestionDetection = () => {
   const [detectedQuestionId, setDetectedQuestionId] = useState(null);
   const [userAnswer, setUserAnswer] = useState(null);
   const [answerResult, setAnswerResult] = useState(null);
+  const [questionResult, setQuestionResult] = useState(null);
+
   const [recording, setRecording] = useState(false);
   const [loading, setLoading] = useState(false);
   const [answerLoading, setAnswerLoading] = useState(false);
@@ -33,7 +35,10 @@ const GeminiVoiceQuestionDetection = () => {
 
       if (!isNaN(questionId)) {
         setDetectedQuestionId(questionId);
+        const detectedQoustion = questions.filter(q => q.id == questionId)
+        setQuestionResult(detectedQoustion)
         console.log("رقم السؤال المكتشف:", questionId); 
+
       } else {
         setDetectedQuestionId(null);
       }
@@ -42,6 +47,7 @@ const GeminiVoiceQuestionDetection = () => {
     }
     setLoading(false);
   };
+  console.log( questionResult); 
 
   const handleSendAnswerToGemini = async (answerText) => {
     setAnswerLoading(true);
@@ -117,7 +123,7 @@ const GeminiVoiceQuestionDetection = () => {
       </div>
       {loading && <p className="status-text">جاري معالجة السؤال...</p>}
       {answerLoading && <p className="status-text">جاري معالجة الإجابة...</p>}
-      {detectedQuestionId && <p> السؤال : {detectedQuestionId}</p>}
+      {detectedQuestionId && <p> السؤال : {questionResult[0].question}</p>}
       {userAnswer && (
         <p>
           الإجابة : "{userAnswer}" - النتيجة: {answerResult}
