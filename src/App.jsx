@@ -8,6 +8,7 @@ import "./App.css";
 
 const App = () => {
   const [detectedQuestionId, setDetectedQuestionId] = useState(null);
+  const [disable, setDisable] = useState(" ");
   const [userAnswer, setUserAnswer] = useState(null);
   const [answerResult, setAnswerResult] = useState(null);
   const [questionResult, setQuestionResult] = useState(null);
@@ -18,11 +19,14 @@ const App = () => {
   const startRecordingQuestion = async () => {
     setRecording(true);
     try {
-      const voiceText = await recognizeVoice();
       setLoading(true);
+      const voiceText = await recognizeVoice();
       const questionId = await getQuestionIdFromGemini(questions, voiceText);
       setDetectedQuestionId(questionId);
       const questionText = questions.filter( q => q.id == questionId )
+      setDisable(questionText[0].answer)
+      console.log(!questionText[0].answer)
+
       setQuestionResult(questionText[0].question)
       setLoading(false);
     } catch (error) {
@@ -31,7 +35,7 @@ const App = () => {
     }
     setRecording(false);
   };
-
+  
   const startRecordingAnswer = async () => {
     setRecording(true);
     try {
@@ -45,6 +49,7 @@ const App = () => {
     }
     setRecording(false);
   };
+  
 
   return (
     <div className={`app-container ${recording ? "recording" : ""}`}>
@@ -56,7 +61,7 @@ const App = () => {
       </div>
       <div className="button-container">
         <RecordButton onMouseDown={startRecordingQuestion} onMouseUp={() => setRecording(false)} text="🎙️ تسجيل السؤال" active={recording} />
-        <RecordButton onMouseDown={startRecordingAnswer} onMouseUp={() => setRecording(false)} text="🎤 تسجيل الإجابة" active={recording} disabled={!detectedQuestionId} />
+        <RecordButton onMouseDown={startRecordingAnswer} onMouseUp={() => setRecording(false)} text="🎤 تسجيل الإجابة" active={recording} disabled={disable} />
       </div>
       {loading ? <p className="status-text">جاري معالجة السؤال...</p> : <p className="status-text"> {questionResult} </p> }
      

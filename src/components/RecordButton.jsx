@@ -2,12 +2,16 @@ import React from "react";
 
 // Component to render a recording button
 const RecordButton = ({ onMouseDown, onMouseUp, text, active, disabled }) => {
+
+
   return (
     <button
-      onMouseDown={onMouseDown}
+      onMouseDown={onMouseDown} 
       onMouseUp={onMouseUp}
+      onTouchStart={onMouseDown}
+      onTouchEnd={onMouseUp}
       className={`record-btn ${active ? "active" : ""}`}
-      disabled={disabled}
+      disabled={text === "🎙️ تسجيل السؤال" ? false : disabled === " " ? true : false}
     >
       {text}
     </button>

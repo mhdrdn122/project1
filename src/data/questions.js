@@ -310,70 +310,70 @@ export const questions = [
     id: 33,
     question: " كيف يكتب العدد واحد؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number1,
   },
 
   {
     id: 34,
     question: "كيف يكتب العدد اثنان؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number2,
   },
 
-  {
-    id: 35,
-    question: " كيف يكتب العدد واحد؟",
-    answer: " ",
-    src: flower_and_ball,
-  },
+  // {
+  //   id: 35,
+  //   question: " كيف يكتب العدد واحد؟",
+  //   answer: " ",
+  //   src: flower_and_ball,
+  // },
 
   {
     id: 36,
     question: " كيف يكتب العدد 3؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number3,
   },
 
   {
     id: 37,
     question: " كيف يكتب العدد 4؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number4,
   },
 
   {
     id: 38,
     question: " كيف يكتب العدد 5 ؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number5,
   },
 
   {
     id: 39,
-    question: " كيف يكتب العدد 9؟",
+    question: "? كيف يكتب العدد 6 ",
     answer: " ",
-    src: flower_and_ball,
+    src: number6,
   },
 
   {
     id: 40,
     question: " كيف يكتب العدد 7؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number7,
   },
 
   {
     id: 41,
     question: " كيف يكتب العدد 8 ؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number8,
   },
 
   {
     id: 42,
     question: " كيف يكتب العدد 9 ؟",
     answer: " ",
-    src: flower_and_ball,
+    src: number9,
   },
 
   {

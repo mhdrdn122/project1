@@ -15,6 +15,8 @@ export const recognizeVoice = () => {
         resolve(voiceText); // Return the detected text
       } else {
         reject("الصوت غير واضح");
+      alert(" الصوت غير واضح ")
+
       }
     };
 
@@ -28,6 +30,7 @@ export const recognizeVoice = () => {
     // Handle any recognition errors
     recognition.onerror = (event) => {
       reject(`خطأ في التعرف على الصوت: ${event.error}`);
+      alert("خطأ في التعرف على الصوت")
     };
 
     // Start voice recognition
