@@ -1,61 +1,51 @@
-// import damas from "../assets/images/damas.jfif";
-// import maka from "../assets/images/maka.jfif";
-// import baghdad from "../assets/images/baghdad.jfif";
+import color from "../../public/assets/images/Unit_1/lesson1/color.png";
+import tree_and_flower from "../../public/assets/images/Unit_1/lesson1/tree and flower.png";
+import pattern from "../../public/assets/images/Unit_1/lesson1/pattern.png";
+import sun_and_moon from "../../public/assets/images/Unit_1/lesson1/sun and moon.png";
 
-// export const questions = [
-//   { id: 1, question: "أين تقع دمشق؟", answer: "سوريا", src: damas },
-//   { id: 2, question: "أين تقع مكة؟", answer: "السعودية", src: maka },
-//   { id: 3, question: "أين تقع بغداد؟", answer: "العراق", src: baghdad }
-
-// ];
-
-import color from "../assets/images/Unit_1/lesson1/color.png";
-import tree_and_flower from "../assets/images/Unit_1/lesson1/tree and flower.png";
-import pattern from "../assets/images/Unit_1/lesson1/pattern.png";
-import sun_and_moon from "../assets/images/Unit_1/lesson1/sun and moon.png";
-
-import car_and_bike from "../assets/images/Unit_1/lesson2/car and bike.png";
-import styles3 from "../assets/images/Unit_1/lesson2/styles 3.png";
-import bananaa_and_apple from "../assets/images/Unit_1/lesson2/Untitled.png";
-import clock_and_glasess from "../assets/images/Unit_1/lesson2/نظارة وساعة.png";
+import car_and_bike from "../../public/assets/images/Unit_1/lesson2/car and bike.png";
+import styles3 from "../../public/assets/images/Unit_1/lesson2/styles 3.png";
+import bananaa_and_apple from "../../public/assets/images/Unit_1/lesson2/Untitled.png";
+import clock_and_glasess from "../../public/assets/images/Unit_1/lesson2/نظارة وساعة.png";
 
 
-import eleghant from "../assets/images/Unit_2/lesson1/eleghant.jpg";
-import number1 from "../assets/images/Unit_2/lesson1/one.mp4";
-import number2 from "../assets/images/Unit_2/lesson1/tow.mp4";
-import ghazal1 from "../assets/images/Unit_2/lesson1/ghazal1.webp";
+import eleghant from "../../public/assets/images/Unit_2/lesson1/eleghant.jpg";
+import number1 from "../../public/assets/images/Unit_2/lesson1/one.mp4";
+
+import number2 from "../../public/assets/images/Unit_2/lesson1/tow.mp4";
+import ghazal1 from "../../public/assets/images/Unit_2/lesson1/ghazal1.webp";
 
 
-import chicken from "../assets/images/Unit_2/lesson2/3.png";
-import birds from "../assets/images/Unit_2/lesson2/4.png";
-import number3 from "../assets/images/Unit_2/lesson2/three.mp4";
-import number4 from "../assets/images/Unit_2/lesson2/foure.mp4";
+import chicken from "../../public/assets/images/Unit_2/lesson2/3.png";
+import birds from "../../public/assets/images/Unit_2/lesson2/4.png";
+import number3 from "../../public/assets/images/Unit_2/lesson2/three.mp4";
+import number4 from "../../public/assets/images/Unit_2/lesson2/foure.mp4";
 
-import bingone from "../assets/images/Unit_2/lesson3/5q.png";
-import dolghin from "../assets/images/Unit_2/lesson3/6.png";
-import number5 from "../assets/images/Unit_2/lesson3/five.mp4";
-import number6 from "../assets/images/Unit_2/lesson3/six.mp4";
+import bingone from "../../public/assets/images/Unit_2/lesson3/5q.png";
+import dolghin from "../../public/assets/images/Unit_2/lesson3/6.png";
+import number5 from "../../public/assets/images/Unit_2/lesson3/five.mp4";
+import number6 from "../../public/assets/images/Unit_2/lesson3/six.mp4";
 
-import bensels from "../assets/images/Unit_2/lesson4/7.png";
-import kaps from "../assets/images/Unit_2/lesson4/8.png";
-import books from "../assets/images/Unit_2/lesson4/9.png";
-import number7 from "../assets/images/Unit_2/lesson4/sevne.mp4";
-import number8 from "../assets/images/Unit_2/lesson4/eight.mp4";
-import number9 from "../assets/images/Unit_2/lesson4/nine.mp4";
+import bensels from "../../public/assets/images/Unit_2/lesson4/7.png";
+import kaps from "../../public/assets/images/Unit_2/lesson4/8.png";
+import books from "../../public/assets/images/Unit_2/lesson4/9.png";
+import number7 from "../../public/assets/images/Unit_2/lesson4/sevne.mp4";
+import number8 from "../../public/assets/images/Unit_2/lesson4/eight.mp4";
+import number9 from "../../public/assets/images/Unit_2/lesson4/nine.mp4";
 
-import table_book from "../assets/images/Unit_2/lesson5/table_book.png";
-import table from "../assets/images/Unit_2/lesson5/-5841544741542545397_120.jpg";
-import number0 from "../assets/images/Unit_2/lesson5/number0.png";
-import empty_plate from "../assets/images/Unit_2/lesson5/empty_plate.png";
+import table_book from "../../public/assets/images/Unit_2/lesson5/table_book.png";
+import table from "../../public/assets/images/Unit_2/lesson5/-5841544741542545397_120.jpg";
+import number0 from "../../public/assets/images/Unit_2/lesson5/number0.png";
+import empty_plate from "../../public/assets/images/Unit_2/lesson5/empty_plate.png";
 
 
-import bengone_and_gazal from "../assets/images/Unit_2/lesson6/12.png";
-import rabbit_and_corret from "../assets/images/Unit_2/lesson6/13.png";
-import birds_and_kaps from "../assets/images/Unit_2/lesson6/Untitled.png";
+import bengone_and_gazal from "../../public/assets/images/Unit_2/lesson6/12.png";
+import rabbit_and_corret from "../../public/assets/images/Unit_2/lesson6/13.png";
+import birds_and_kaps from "../../public/assets/images/Unit_2/lesson6/Untitled.png";
 
-import flower_and_ball from "../assets/images/Unit_2/lesson7/0000000000.png";
-import bananaa_and_apple2 from "../assets/images/Unit_2/lesson7/123.png";
-import boy_and_tothbrach from "../assets/images/Unit_2/lesson7/22.png";
+import flower_and_ball from "../../public/assets/images/Unit_2/lesson7/0000000000.png";
+import bananaa_and_apple2 from "../../public/assets/images/Unit_2/lesson7/123.png";
+import boy_and_tothbrach from "../../public/assets/images/Unit_2/lesson7/22.png";
 
 
 

@@ -1,42 +1,25 @@
-import confetti from 'react-canvas-confetti';
+import confetti from 'canvas-confetti';
 
-let myConfetti;
-
-export const initConfetti = () => {
-  myConfetti = confetti.create(document.getElementById('my-confetti-canvas'), {
-    resize: true,
-    useWorker: true,
+export const showSuccessConfetti = () => {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.6 },
+    colors: ['#00FF88', '#00D4FF', '#66FF66', '#F3FF00'],
+    scalar: 1.2,
+    zIndex: 9999,
   });
 };
 
-export const triggerSuccessConfetti = () => {
-  if (myConfetti) {
-    myConfetti({
-      particleCount: 200,
-      spread: 70,
-      origin: { y: 0.6 },
-      zIndex: 100,
-    });
-  }
-};
-
-export const triggerFailureConfetti = () => {
-  if (myConfetti) {
-    myConfetti({
-      particleCount: 100,
-      angle: 60,
-      spread: 55,
-      origin: { x: 0 },
-      zIndex: 100,
-      colors: ['#bb0000', '#ffffff'],
-    });
-    myConfetti({
-      particleCount: 100,
-      angle: 120,
-      spread: 55,
-      origin: { x: 1 },
-      zIndex: 100,
-      colors: ['#bb0000', '#ffffff'],
-    });
-  }
+export const showFailureConfetti = () => {
+  confetti({
+    particleCount: 80,
+    angle: 120,
+    spread: 70,
+    origin: { y: 0.4 },
+    gravity: 2.5,
+    colors: ['#ff4d4f', '#8b0000', '#ff8888'],
+    scalar: 1,
+    zIndex: 9999,
+  });
 };

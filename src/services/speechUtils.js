@@ -1,24 +1,46 @@
-const speakArabicText = (text) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ar-SA'; // تحديد اللغة العربية (يمكن تغيير اللهجة)
-      utterance.rate = 1; // سرعة الكلام (يمكن تعديلها)
-      utterance.pitch = 1; // نبرة الصوت (يمكن تعديلها)
-  
-      utterance.onerror = (event) => {
-        console.error('حدث خطأ أثناء تحويل النص إلى كلام:', event);
-      };
-  
-      window.speechSynthesis.speak(utterance);
-    } else {
-      console.error('واجهة برمجة تطبيقات تحويل النص إلى كلام غير مدعومة في هذا المتصفح.');
+const speakArabicText = (text, options = {}) => {
+  return new Promise((resolve, reject) => {
+    if (!('speechSynthesis' in window)) {
+      console.error('Text-to-speech is not supported in this browser.');
+      return reject('TTS not supported');
     }
-  };
-  
-  const stopSpeaking = () => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+
+    // Cancel any ongoing speech before starting
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // Use custom options if provided, otherwise use defaults
+    utterance.lang = options.lang || 'ar-SA'; // Default to Arabic (Saudi)
+    utterance.rate = options.rate || 1;
+    utterance.pitch = options.pitch || 1;
+    utterance.volume = options.volume || 1;
+
+    // Try to select an Arabic voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const arabicVoice = voices.find(voice => voice.lang.startsWith('ar'));
+
+    if (arabicVoice) {
+      utterance.voice = arabicVoice;
     }
-  };
-  
-  export { speakArabicText, stopSpeaking };
+
+    utterance.onend = () => {
+      resolve('Speech finished');
+    };
+
+    utterance.onerror = (event) => {
+      console.error('An error occurred during speech synthesis:', event);
+      reject(event.error);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  });
+};
+
+const stopSpeaking = () => {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+};
+
+export { speakArabicText, stopSpeaking };
