@@ -21,27 +21,27 @@ import clock_and_glasess from "../assets/images/Unit_1/lesson2/نظارة وسا
 
 
 import eleghant from "../assets/images/Unit_2/lesson1/eleghant.jpg";
-import number1 from "../assets/images/Unit_2/lesson1/number1.png";
-import number2 from "../assets/images/Unit_2/lesson1/number2.jpg";
+import number1 from "../assets/images/Unit_2/lesson1/one.mp4";
+import number2 from "../assets/images/Unit_2/lesson1/tow.mp4";
 import ghazal1 from "../assets/images/Unit_2/lesson1/ghazal1.webp";
 
 
 import chicken from "../assets/images/Unit_2/lesson2/3.png";
 import birds from "../assets/images/Unit_2/lesson2/4.png";
-import number3 from "../assets/images/Unit_2/lesson2/number3.png";
-import number4 from "../assets/images/Unit_2/lesson2/number4.png";
+import number3 from "../assets/images/Unit_2/lesson2/three.mp4";
+import number4 from "../assets/images/Unit_2/lesson2/foure.mp4";
 
 import bingone from "../assets/images/Unit_2/lesson3/5q.png";
 import dolghin from "../assets/images/Unit_2/lesson3/6.png";
-import number5 from "../assets/images/Unit_2/lesson3/number5.png";
-import number6 from "../assets/images/Unit_2/lesson3/number6.png";
+import number5 from "../assets/images/Unit_2/lesson3/five.mp4";
+import number6 from "../assets/images/Unit_2/lesson3/six.mp4";
 
 import bensels from "../assets/images/Unit_2/lesson4/7.png";
 import kaps from "../assets/images/Unit_2/lesson4/8.png";
 import books from "../assets/images/Unit_2/lesson4/9.png";
-import number7 from "../assets/images/Unit_2/lesson4/number7.png";
-import number8 from "../assets/images/Unit_2/lesson4/number8.png";
-import number9 from "../assets/images/Unit_2/lesson4/number9.png";
+import number7 from "../assets/images/Unit_2/lesson4/sevne.mp4";
+import number8 from "../assets/images/Unit_2/lesson4/eight.mp4";
+import number9 from "../assets/images/Unit_2/lesson4/nine.mp4";
 
 import table_book from "../assets/images/Unit_2/lesson5/table_book.png";
 import table from "../assets/images/Unit_2/lesson5/-5841544741542545397_120.jpg";

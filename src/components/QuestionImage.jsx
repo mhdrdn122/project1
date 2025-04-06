@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
-// Component to render the question image with optional highlighting
-const QuestionImage = ({ src, alt, highlighted }) => {
+const QuestionMedia = ({ src, alt, highlighted }) => {
+  const videoRef = useRef(null);
+  let parts = src.split("/");
+  console.log(parts);
+
+  let lastElement = parts[parts.length - 1];
+  let extension = lastElement ? lastElement.split(".")[1]?.toLowerCase() : "";
+
+  useEffect(() => {
+    if (extension === "mp4" && videoRef.current) {
+      videoRef.current.play();
+    }
+  }, [extension]); 
+
+  
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={`question-image ${highlighted ? "highlight" : ""}`}
-    />
+    <>
+      {extension === "mp4" ? (
+        <video
+          ref={videoRef}
+          src={src}
+          alt={alt}
+          className={`question-media ${highlighted ? "highlight" : ""}`}
+          controls={false} 
+          autoPlay 
+          loop={false} 
+        />
+      ) : (
+        
+        <img
+          src={src}
+          alt={alt}
+          className={`question-media ${highlighted ? "highlight" : ""}`}
+        />
+      )}
+    </>
   );
 };
 
-export default QuestionImage;
+export default QuestionMedia;
